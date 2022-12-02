@@ -17,8 +17,9 @@ def test_colo_tensor():
     mesh_shape = torch.Size([4])
     
     tensor_shape = [8, 12]
-    device_mesh = DeviceMesh(physical_mesh_id, mesh_shape, init_process_group=True)
-    entire_shape = torch.Size(tensor_shape)
+    
+    device_mesh = DeviceMesh(physical_mesh_id, mesh_shape, init_process_group=True, need_flatten=True)
+    entire_shape = torch.Size([32, 12])
     shape_consistency_manager = ShapeConsistencyManager()
 
     # row shard
@@ -40,5 +41,5 @@ def test_colo_tensor():
 
 
 if __name__ == "__main__":
-    # torchrun --standalone --nproc_per_node=4 cai.py
+    # torchrun --standalone --nproc_per_node=4 cai.pyg
     test_colo_tensor()
